@@ -184,7 +184,11 @@ export class OneSignalPushAdapter {
       method: "POST",
       headers: headers
     };
-    data['app_id'] = this.OneSignalConfig['appId'];
+    if(this.OneSignalConfig['appId'].constructor === Array){
+      data['app_ids'] = this.OneSignalConfig['appId'];
+    }else {
+      data['app_id'] = this.OneSignalConfig['appId'];
+    }
 
     let request = this.https.request(options, function(res) {
       if(res.statusCode < 299) {
